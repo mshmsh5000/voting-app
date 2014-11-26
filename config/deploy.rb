@@ -1,5 +1,11 @@
 # config/deploy.rb file
 require 'bundler/capistrano'
+require 'capistrano/fastly'
+
+set :fastly_config, {
+      :service_id => ENV["FASTLY_SERVICE_ID"],
+      :api_key => ENV["FASTLY_API_KEY"]
+}
 
 set :application, "voting-app"
 set :deploy_to, ENV["DEPLOY_PATH"]
@@ -38,3 +44,4 @@ end
 after "deploy:update", "deploy:cleanup"
 after "deploy:symlink", "deploy:link_folders"
 after "deploy:link_folders", "deploy:artisan_migrate"
+after "deploy:artisan_migrate, fastly:purge_all"
