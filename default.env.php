@@ -11,4 +11,7 @@ return [
 
   'CACHE_DRIVER'    => 'file',
   'SESSION_DRIVER'  => 'file',
+
+  'STATHAT_EZ_KEY'  => 'key',
+
 ];
